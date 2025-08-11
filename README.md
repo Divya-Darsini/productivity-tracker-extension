@@ -15,9 +15,7 @@ It runs in the background, tracks the time spent on different websites, and disp
 🔄 Runs on Chrome and Microsoft Edge — Works seamlessly in both browsers.
 
 📂 Project Structure
-bash
-Copy
-Edit
+
 📦 productivity-tracker
  ┣ 📂 backend               # Node.js + Express + MongoDB server
  ┣ 📂 extension
@@ -26,47 +24,29 @@ Edit
  ┃ ┣ background.js          # Tracks time and blocks sites
  ┃ ┣ content.js             # Injected into webpages
  ┣ README.md
+ 
 🛠️ Installation
 1️⃣ Backend Setup
 Navigate to the backend folder:
 
-bash
-Copy
-Edit
 cd backend
 Install dependencies:
 
-bash
-Copy
-Edit
 npm install
 Create a .env file with:
 
-env
-Copy
-Edit
 MONGO_URI=your_mongo_connection
 PORT=5000
 Run the backend:
 
-bash
-Copy
-Edit
 npm start
 2️⃣ Extension Setup (Chrome/Edge)
 Open Microsoft Edge or Google Chrome.
 
 Go to:
-
-arduino
-Copy
-Edit
 edge://extensions
 or for Chrome:
 
-arduino
-Copy
-Edit
 chrome://extensions
 Enable Developer Mode (top right).
 
