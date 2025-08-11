@@ -1,0 +1,36 @@
+// popup.js
+document.addEventListener('DOMContentLoaded', () => {
+  const summaryEl = document.getElementById('summary');
+  const syncBtn = document.getElementById('sync');
+
+  // computeToday reads chrome.storage with a callback (works in MV3)
+  function computeToday() {
+    chrome.storage.local.get(['pendingActivities'], (result) => {
+      const arr = result.pendingActivities || [];
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+
+      let total = 0;
+      arr.forEach(a => {
+        const st = new Date(a.startTime);
+        if (!isNaN(st) && st >= startOfDay) total += (a.durationSeconds || 0);
+      });
+
+      summaryEl.textContent = `Time tracked (pending): ${Math.round(total / 60)} min`;
+    });
+  }
+
+  // send a message to the background service worker to flush
+  syncBtn.addEventListener('click', () => {
+    chrome.runtime.sendMessage({ action: 'flushPendingToServer' }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.warn('Message error:', chrome.runtime.lastError.message);
+      } else {
+        // optional: show tiny feedback
+        console.log('Flush requested:', response);
+      }
+    });
+  });
+
+  computeToday();
+});
